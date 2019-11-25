@@ -1,0 +1,81 @@
+body,
+	html {
+		margin: 0;
+		padding: 0;
+		height: 100%;
+		background: #504545 !important;
+		font-family: 'Montserrat', sans-serif;;
+		}
+		
+		.user_card {
+		height: 400px;
+		width: 500px;
+		margin-top: auto;
+		margin-bottom: auto;
+		background: #ffffff;
+		position: relative;
+		display: flex;
+		justify-content: center;
+		font-family: 'Montserrat', sans-serif;;
+		flex-direction: column;
+		padding: 10px;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		border-radius: 5px;
+ 
+		}
+		.brand_logo_container {
+		position: absolute;
+		height: 170px;
+		width: 170px;
+		top: -75px;
+		border-radius: 50%;
+		background: #efefef;
+		font-family: 'Montserrat', sans-serif;;
+		padding: 10px;
+        text-align: center;
+        border-style: double;
+        border-color: #4d4d4d54;
+		}
+		.brand_logo {
+		height: 135px;
+		width: 135px;
+		font-family: 'Montserrat', sans-serif;;
+        margin-top: 8px;
+		/* border-radius: 50%; */
+		/* border: 2px solid white; */
+		}
+		.form_container {
+		margin-top: 55PX;
+		font-family: 'Montserrat', sans-serif;;
+		}
+		.login_btn {
+		width: 224px;
+		background: #20c997 !important;
+		color: white !important;
+		}
+		.login_btn:focus {
+		box-shadow: none !important;
+		outline: 0px !important;
+		}
+		
+		.input-group-text {
+		background: #20c997  !important;
+		color: white !important;
+		border: 0 !important;
+		border-radius: 0.25rem 0 0 0.25rem !important;
+		}
+		.input_user,
+	.input_pass:focus {
+		box-shadow: none !important;
+		outline: 0px !important;
+		}
+		.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+		background-color: #20c997 !important;
+		}
+a {
+    color: white;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+

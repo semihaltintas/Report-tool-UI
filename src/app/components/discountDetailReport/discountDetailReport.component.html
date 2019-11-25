@@ -1,0 +1,41 @@
+<dx-load-panel
+#loadPanel
+shadingColor="rgba(0,0,0,0.4)"    
+[(visible)]="loadingVisible"
+[showIndicator]="true"
+[showPane]="true"
+[shading]="true"
+message = "Rapor Yükleniyor..."
+[closeOnOutsideClick]="false">
+</dx-load-panel>
+<h3>İndirim Detay Raporu</h3>
+<div class="table-responsive tableFixHead">
+<table class="table table-striped ">
+  <thead class ="thead-dark">
+    <tr>
+      <th scope="col">Şube Adı</th>
+      <th scope="col">İskonto Nedeni</th>
+      <th scope="col">İskonto Açıklama</th>
+      <th scope="col">İskonto Oranı</th>
+      <th scope="col">Adisyon No</th>
+      <th scope="col">İskonto Yapan</th>
+      <th scope="col">İndirim</th>
+      <th scope="col">Kapanma Zamanı</th>
+      <th scope="col">Garson</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of discountDetailListModel;let c=index">     
+      <td>{{item.SUBE_ADI}}</td>
+      <td>{{item.ISKONTO_NEDENI}}</td>
+      <td>{{item.ISKONTO_ACIKLAMA}}</td>
+      <td>% {{item.ISKONTO_ORANI | number}}</td>
+      <td><a (click) = "getFolioDetail(item.ADISYONNO)"><span style="text-decoration: underline;cursor: pointer;;">{{item.ADISYONNO}}</span></a></td>
+      <td>{{item.ISKONTO_YAPAN}}</td>
+      <td>{{item.INDIRIM | number}} ₺</td>
+      <td>{{item.K_ZAMAN | date :  "dd.MM.yyyy h:mm"}}</td>
+      <td>{{item.GARSON}}</td>
+    </tr>   
+  </tbody>
+</table>
+</div>

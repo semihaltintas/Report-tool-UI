@@ -1,0 +1,101 @@
+<dx-load-panel
+#loadPanel
+shadingColor="rgba(0,0,0,0.4)"    
+[(visible)]="loadingVisible"
+[showIndicator]="true"
+[showPane]="true"
+[shading]="true"
+message = "Rapor Yükleniyor..."
+[closeOnOutsideClick]="false"npm 
+>
+</dx-load-panel> 
+ <h3>Menü Kalemi Satış Özeti Raporu</h3>
+ <div class="table-responsive tableFixHead">
+<table data-toggle="table"
+data-search-text="8">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Grup Türü</th>
+      <th scope="col">Grubu</th>
+      <th scope="col">İndirimsiz Brüt</th>
+      <th scope="col">Brüt İndirim</th>
+      <th scope="col">İndirimsiz Net</th>
+      <th scope="col">Net İndirim</th>
+      <th scope="col">İndirimli Net</th>
+      <th scope="col">Ürün Adet</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of menuItemSaleData;let c=index">
+      <td>{{item.GRUPTURU}}</td>
+      <td>{{item.GRUP}}</td>
+      <td>{{item.INDIRIMSIZ_BRUT | number}} ₺</td>
+      <td>{{item.BRUT_INDIRIM | number}} ₺</td>
+      <td>{{item.INDIRIMSIZ_NET | number}} ₺</td>
+      <td>{{item.NET_INDIRIM | number}} ₺</td>
+      <td>{{item.INDIRIMLI_NET | number}} ₺</td>
+      <td>{{item.URUN_ADET | number}} ₺</td>  
+    </tr>   
+  </tbody>
+</table>
+
+</div> 
+<div style="margin-top:40px;"></div>
+
+<h3>En Çok Satan 20 Ürün</h3>
+ <div class="table-responsive tableFixHead">
+<table data-toggle="table"
+data-search-text="8">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Grup Türü</th>
+      <th scope="col">Grubu</th>
+      <th scope="col">İndirimsiz Brüt</th>
+      <th scope="col">Brüt İndirim</th>
+      <th scope="col">İndirimsiz Net</th>
+      <th scope="col">Net İndirim</th>
+      <th scope="col">İndirimli Net</th>
+      <th scope="col">Ürün Adet</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of mostSaleItemData;let c=index">
+      <td>{{item.GRUPTURU}}</td>
+      <td>{{item.GRUP}}</td>
+      <td>{{item.INDIRIMSIZ_BRUT | number}} ₺</td>
+      <td>{{item.BRUT_INDIRIM | number}} ₺</td>
+      <td>{{item.INDIRIMSIZ_NET | number}} ₺</td>
+      <td>{{item.NET_INDIRIM | number}} ₺</td>
+      <td>{{item.INDIRIMLI_NET | number}} ₺</td>
+      <td>{{item.URUN_ADET | number}} ₺</td>  
+    </tr>   
+  </tbody>
+</table>
+
+</div> 
+
+
+<!-- <table
+  id="table"
+  data-toggle="table"
+  data-search="true"
+  data-show-refresh="true"
+  data-show-toggle="true">
+  <thead>
+    <tr>
+      <th data-field="id">ID</th>
+      <th data-field="name">Item Name</th>
+      <th data-field="price">Item Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>gesg</td>
+      <td>155 ₺</td>
+    </tr>
+  </tbody>
+</table> -->
+

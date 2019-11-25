@@ -1,0 +1,33 @@
+<dx-load-panel
+#loadPanel
+shadingColor="rgba(0,0,0,0.4)"    
+[(visible)]="loadingVisible"
+[showIndicator]="true"
+[showPane]="true"
+[shading]="true"
+message = "Rapor Yükleniyor..."
+[closeOnOutsideClick]="false">
+</dx-load-panel>
+<h3>İşetme İndirim Özet Raporu</h3>
+<div class="table-responsive tableFixHead">
+<table class="table table-striped ">
+  <thead class ="thead-dark">
+    <tr>
+      <th scope="col">Şube Adı</th>
+      <th scope="col">İskonto Nedeni</th>
+      <th scope="col">Toplam</th>
+      <th scope="col">Sayı</th>
+      <th scope="col">Oralama</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of discountSummaryListModel;let c=index">     
+      <td>{{item.SUBE_ADI}}</td>
+      <td style="cursor: pointer!important;text-decoration: underline;"><a (click)="getDiscountDetail(item.ISKONTO_NEDENI)">{{item.ISKONTO_NEDENI}}</a></td>
+      <td>{{item.TOPLAM | number}} ₺</td>
+      <td>{{item.SAYI}}</td>
+      <td>{{item.TOPLAM / item.SAYI | number}} ₺</td>
+    </tr>   
+  </tbody>
+</table>
+</div>

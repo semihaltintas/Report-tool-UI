@@ -1,0 +1,43 @@
+<dx-load-panel
+#loadPanel
+shadingColor="rgba(0,0,0,0.4)"    
+[(visible)]="loadingVisible"
+[showIndicator]="true"
+[showPane]="true"
+[shading]="true"
+message = "Rapor Yükleniyor..."
+[closeOnOutsideClick]="false">
+</dx-load-panel>
+<h3>Silinen Ürün Raporu</h3>
+<div class="table-responsive tableFixHead">
+<table class="table table-striped ">
+  <thead class ="thead-dark">
+    <tr>
+      <th scope="col">Sıra No</th>
+      <th scope="col">Sube</th>
+      <th scope="col">Çek No</th>
+      <th scope="col">Ürün Kodu</th>
+      <th scope="col">Ürün Adı</th>
+      <th scope="col">Grup</th>
+      <th scope="col">Miktar</th>
+      <th scope="col">Toplam</th>
+      <th scope="col">Silme Neden</th>
+      <th scope="col">Açıklama</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of deletedItemsDetailData;let c=index"> 
+      <td>{{item.SIRA_NO}}</td>
+      <td>{{item.SUBE_ADI}}</td>
+      <td style="cursor: pointer!important;text-decoration: underline;"><a (click)="getFolioDetail(item.Adisyonno)">{{item.Adisyonno}}</a></td>
+      <td>{{item.STOK_KODU}}</td>
+      <td>{{item.Urun_Adi}}</td>
+      <td>{{item.Grup}}</td>
+      <td>{{item.miktari}}</td>
+      <td>{{item.Toplam | number}} ₺</td>
+      <td>{{item.NEDEN}}</td>
+      <td>{{item.ACIKLAMA}}</td>  
+    </tr>   
+  </tbody>
+</table>
+</div>

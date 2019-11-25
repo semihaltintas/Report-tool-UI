@@ -1,0 +1,191 @@
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [(visible)]="loadingVisible" [showIndicator]="true"
+  [showPane]="true" [shading]="true" message="Rapor Yükleniyor..." [closeOnOutsideClick]="false">
+</dx-load-panel>
+<!-- <h3>Adisyon Detayı</h3> -->
+<div id="invoice">
+
+  <div class="invoice overflow-auto">
+    <div style="min-width: 600px">
+      <header>
+        <div class="row">
+          <div class="col">
+
+          </div>
+          <div class="col company-details">
+            <h2 class="name">
+
+              ŞUBE : {{folioDetailList[0].SUBE_ADI}}
+
+            </h2>
+          </div>
+        </div>
+      </header>
+      <main>
+        <div class="row contacts">
+          <div class="col invoice-to">
+            <div class="text-gray-light">PERSONEL :</div>
+            <h2 class="to">{{folioDetailList[0].PERSONEL}}</h2>
+            <div class="text-gray-light">MASA :</div>
+            <h2 class="to">{{folioDetailList[0].masano}}</h2>
+            <div class="address">Kişi Sayısı : {{folioDetailList[0].KISI_SAYISI}}</div>
+            <div class="address">Oturma Süresi : {{folioDetailList[0].OTURMA_SURESI}} dk</div>
+          </div>
+          <div class="col invoice-details">
+            <h1 class="invoice-id">{{folioDetailList[0].Adisyonno}}</h1>
+            <div class="date">Açılış Zamanı: {{folioDetailList[0].ACILIS_ZAMANI | date :  "dd.MM.yyyy h:mm"}}</div>
+            <div class="date">Kapanış Zamanı: {{folioDetailList[0].KAPANIS_ZAMANI | date : "dd.MM.yyy h:mm"}}</div>
+          </div>
+        </div>
+        <table border="0" cellspacing="0" cellpadding="0">
+          <thead>
+            <tr style="background-color: #212529!important; color: #ffffff;;">
+              <th class="text-left">Ürün Adı</th>
+              <th class="text-left">Adet</th>
+              <th class="text-right">Tutar</th>
+              <th class="text-right">İkram</th>
+              <th class="text-right">İkram Neden</th>
+              <th class="text-right">Silinme</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of folioDetailList;let c=index">
+              <td class="unit text-left">{{item.urunadi}}</td>
+              <td class="qty text-left">{{item.ADET}}</td>
+              <td class="unit text-right">{{item.GELIR | number}} ₺</td>
+              <td class="text-right">{{item.IKRAM}}</td>
+              <td class="unit text-right">{{item.IKRAM_NEDEN}}</td>
+              <td class="text-right">{{item.SILINME_SEBEBI}}</td>
+            </tr>
+          </tbody>
+          <!-- <tfoot style="float: left;">
+                    <tr>
+                        <td colspan="2"></td>
+                        <td colspan="2">ARA TOPLAM</td>
+                        <td>{{folioDetailList[0].tutar | number}} ₺</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td colspan="2">GARSONIYE</td>
+                        <td>{{folioDetailList[0].GARSONIYE | number}} ₺</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td colspan="2">NET TOPLAM</td>
+                        <td>$6,500.00</td>
+                    </tr>
+                </tfoot> -->
+                <tfoot>
+                  <tr>
+                      <td colspan="5">ARA TOPLAM</td>
+                      <td>{{folioDetailList[0].tutar | number}} ₺</td>
+                  </tr>
+                  <tr>
+                      <td colspan="5">GARSONİYE</td>
+                      <td>{{folioDetailList[0].GARSONIYE | number}} ₺</td>
+                  </tr>
+                  <tr>
+                      <td colspan="5">NET TOPLAM</td>
+                      <td>{{folioDetailList[0].tutar + folioDetailList[0].GARSONIYE | number}} ₺</td>
+                  </tr>
+              </tfoot>
+          <!-- <tfoot>
+            <tr>
+              <td colspan="7"></td>
+              <td colspan="7"></td>
+              <td colspan="7"></td>
+              <td colspan="7"></td>
+              <td colspan="7">ARA TOPLAM</td>
+              <td>{{folioDetailList[0].tutar | number}}₺</td>
+            </tr>
+            <tr>
+              <td colspan="7"></td>
+              <td colspan="7"></td>
+              <td colspan="7"></td>
+              <td colspan="7"></td>
+              <td colspan="7">GARSONIYE</td>
+              <td>{{folioDetailList[0].GARSONIYE | number}} ₺</td>
+            </tr>
+            <tr>
+              <td colspan="7"></td>
+              <td colspan="7"></td>
+              <td colspan="7"></td>
+              <td colspan="7"></td>
+              <td colspan="7">NET TOPLAM</td>
+              <td>{{folioDetailList[0].tutar + folioDetailList[0].GARSONIYE | number}} ₺</td>
+            </tr>
+          </tfoot> -->
+        </table>
+        <div class="notices">
+          <div>ADİSYON NOT:</div>
+          <div class="notice">{{folioDetailList[0].ADISYON_NOTU}}</div>
+        </div>
+      </main>
+
+    </div>
+    <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+    <div></div>
+  </div>
+</div>
+<!-- <div class="table-responsive tableFixHead"> -->
+<!-- <table class="table table-striped ">
+  <thead class ="thead-dark">
+    <tr>
+      <th scope="col">Sıra No</th>
+      <th scope="col">Sube</th>
+      <th scope="col">Çek No</th>
+      <th scope="col">Ürün Kodu</th>
+      <th scope="col">Ürün Adı</th>
+      <th scope="col">Grup</th>
+      <th scope="col">Miktar</th>
+      <th scope="col">Toplam</th>
+      <th scope="col">Silme Neden</th>
+      <th scope="col">Açıklama</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of folioDetailList;let c=index"> 
+      <td>{{item.SUBE_ADI}}</td>
+      <td>{{item.Adisyonno}}</td>
+      <td>{{item.urunadi}}</td>
+      <td>{{item.masano}}</td>
+      <td>{{item.ADET}}</td>
+      <td>{{item.tutar | number}}</td>
+      <td>{{item.miktari}}</td>
+      <td>{{item.URUN_YAZILMA_SAATI}} ₺</td>
+      <td>{{item.IKRAM}}</td>
+      <td>{{item.IKRAM_NEDEN}}</td>  
+      <td>{{item.SILINME_SEBEBI}}</td> 
+    </tr>   
+  </tbody>
+</table>
+</div> -->
+
+
+<!-- SUBE_ADI;
+Adisyonno;
+masano;
+ACILIS_ZAMANI;
+KAPANIS_ZAMANI;
+URUN_YAZILMA_SAATI;
+KISI_SAYISI;
+ADISYON_NOTU;
+PERSONEL;
+OTURMA_SURESI;
+GARSONIYE;
+ADS_PERSONEL;
+tutar;
+ADISYON_TOPLAMI;
+urunadi;
+ADET;
+GELIR;
+SILINME_SEBEBI;
+IKRAM_NEDEN;
+IKRAM;
+Y_8_KDV_MATRAH;
+Y_18_KDV_MATRAH;
+Y_8_KDV;
+Y_18_KDV;
+INDIRIM_ORANI;
+ISKONTO_BUTONU;
+ISKONTO_NEDENI;
+INDIRIM; -->

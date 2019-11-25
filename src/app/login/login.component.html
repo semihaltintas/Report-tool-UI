@@ -1,0 +1,46 @@
+<div class="container h-100" style="margin-top:10% ">
+	<div class="d-flex justify-content-center h-100">
+	<div class="user_card">
+	<div class="d-flex justify-content-center">
+		<h4><span style="font-weight: 600;">Kullanıcı Girişi</span></h4>
+	<!-- <div class="brand_logo_container">
+	<img src="https://v2assets.zopim.io/2qDCH0OrC6mQKXogxm4FymnW3YKYO6Jt-banner?1560411853613" class="brand_logo" alt="Logo">
+	</div> -->
+	</div>
+	<div class="d-flex justify-content-center form_container">
+	<form (submit)="onFormSubmit($event)">
+	<div class="input-group mb-3">
+	<div class="input-group-append"> 
+	<span class="input-group-text"><i class="fas fa-user"></i></span>
+	</div>
+	<input type="text" name="user" class="form-control input_user" value="" placeholder="Kullanıcı İsim" [(ngModel)]="user.userName">
+	</div>
+	<div class="input-group mb-2">
+	<div class="input-group-append">
+	<span class="input-group-text"><i class="fas fa-key"></i></span>
+	</div>
+	<input type="password" name="pass" class="form-control input_pass" value="" placeholder="Şifre" [(ngModel)]="user.password">	
+	</div>
+	<!-- <div class="form-group">
+	<div class="custom-control custom-checkbox">
+	<input type="checkbox" class="custom-control-input" id="customControlInline">
+	<label class="custom-control-label" for="customControlInline">Remember Password</label>
+	</div>
+	</div> -->
+	<div class="d-flex justify-content-center mt-3 login_container" style="width: 170px;margin-left: auto;margin-right: auto;">
+		<button type="submit" name="button"  class="btn login_btn">Giriş</button>
+		</div>
+	</form>
+	</div>
+  
+	<!-- <div class="mt-4">
+	<div class="d-flex justify-content-center links">
+  Don't have an account? <a href="https://webdevtrick.com" class="ml-2">Sign Up</a>
+	</div>
+	<div class="d-flex justify-content-center links">
+	<a href="#">Forgot your password?</a>
+	</div>
+	</div> -->
+	</div>
+	</div>
+  </div>
