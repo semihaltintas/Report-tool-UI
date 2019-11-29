@@ -1,7 +1,19 @@
-<h4>{{reportTitle}}</h4>
+<!-- <h4>{{reportTitle}}</h4> -->
 
-<div style="margin-bottom: 50px;" ></div>
-
+<div style="margin-bottom: 10px;" ></div>
+<div class="col">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item" 
+      *ngFor="let item of breadcrumbList; let i = index"
+      [class.active]="i===breadcrumbList.length-1">
+      <a  [routerLink]="item.path" [queryParams]="{startedDate:item.startedDate, endDate:item.endDate, branchCode:item.branchCode }"  *ngIf="i!==breadcrumbList.length-1">
+        {{ item.name }}
+        <!-- [queryParams]="{startedDate:'item.startedDate', endDate : 'item.endDate', branchCode : 'item.branchCode' }" -->
+      </a>
+      <span *ngIf="i===breadcrumbList.length-1">{{ item.name }}</span>
+    </li>
+  </ol>
+</div>
 <div id="form-container">
   <form action="your-action">
         <dx-form id="myForm"
@@ -29,3 +41,4 @@
         </dx-form>
   </form>
   </div>
+ 

@@ -19,7 +19,7 @@ export class MenuItemSaleReportComponent implements OnInit {
   mostSaleItemData : menuItemSaleModel[];
   constructor(public _globalService : GlobalService,public route : ActivatedRoute,public _userService : UserService) {
     this.route.queryParams.subscribe(params => {
-      debugger
+
       this.reqModel = _globalService.getNewRequstModel();
       this.reqModel.startedDate = params["startedDate"];
       this.reqModel.endDate = params["endDate"];
@@ -39,8 +39,7 @@ export class MenuItemSaleReportComponent implements OnInit {
      this._globalService.getReportData(this.reqModel,apiUrls.getMenuItemReport,this._userService.userLicances[0].licanceId).subscribe(result => {
       this.menuItemSaleData = result as menuItemSaleModel[];
       var groupBy =  this.arrayGroupBy()
-      // console.log(groupBy.toArray());
-      // console.log();
+
       this.loadingVisible = false;
      })
    }
@@ -48,13 +47,13 @@ export class MenuItemSaleReportComponent implements OnInit {
    getMostSaleItemsData(){
      this._globalService.getReportData(this.reqModel,apiUrls.getBestSellerItemReport,this._userService.userLicances[0].licanceId).subscribe(result => {
        this.mostSaleItemData = result as menuItemSaleModel[];
-       console.log(this.mostSaleItemData);
+
      })
    }
 
   arrayGroupBy() {
     return this.menuItemSaleData.reduce(function(rv, x) {
-      debugger
+ 
       (rv[x['GRUPTURU']] = rv[x['GRUPTURU']] || []).push(x);
       return rv;
     }, {});

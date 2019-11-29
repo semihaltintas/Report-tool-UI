@@ -18,7 +18,7 @@ export class DiscountDetailReportComponent implements OnInit {
  reason = "";
   constructor(public _globalService : GlobalService,public route : ActivatedRoute,public _service : DiscountSummaryReportService,public _userService : UserService,public _router : Router) { 
     this.route.queryParams.subscribe(params => {
-      debugger
+
       this.reqModel = _globalService.getNewRequstModel();
       this.reqModel.startedDate = params["startedDate"];
       this.reqModel.endDate = params["endDate"];
@@ -36,14 +36,14 @@ export class DiscountDetailReportComponent implements OnInit {
     this._service.getDiscountDetailReport(this.reqModel,this.reason,this._userService.userLicances[0].licanceId).subscribe(result => {
       this.discountDetailListModel = result as discountDetailModel[];
       this.loadingVisible = false;
-      console.log(this.discountDetailListModel);
+
     })
   }
 
   getFolioDetail(e)
   {
-    this._globalService.setCurrentUrl("FolioDetail/")
-    this._router.navigate(['/Layout/' +  this._globalService.getCurrentUrl()],{ queryParams: { folioNo:e}, skipLocationChange: true });
+    this._globalService.setCurrentUrl("DailyReportSummary/FolioDetail/")
+    this._router.navigate(['/Layout/' +  this._globalService.getCurrentUrl()],{ queryParams: { folioNo:e , startedDate:this.reqModel.startedDate,endDate:this.reqModel.endDate,branchCode:this.reqModel.branchCode}, skipLocationChange: true });
   }
 
   ngOnInit() {

@@ -18,7 +18,7 @@ export class DiscountSummaryReportComponent implements OnInit {
   discountSummaryListModel: discountSummaryModel[];
   constructor(public route: ActivatedRoute, public _globalService: GlobalService, public _service: DiscountSummaryReportService, public _userService: UserService,public _router : Router) {
     this.route.queryParams.subscribe(params => {
-      debugger
+
       this.reqModel = _globalService.getNewRequstModel();
       this.reqModel.startedDate = params["startedDate"];
       this.reqModel.endDate = params["endDate"];
@@ -42,7 +42,8 @@ export class DiscountSummaryReportComponent implements OnInit {
 
   getDiscountDetail(e)
   {
-    this._globalService.setCurrentUrl("DiscountDetailReport/")
+    
+    this._globalService.setCurrentUrl("DailyReportSummary/DiscountDetailReport/")
   this._router.navigate(['/Layout/' +  this._globalService.getCurrentUrl()],{ queryParams: { startedDate:this.reqModel.startedDate,endDate:this.reqModel.endDate,branchCode:this.reqModel.branchCode,reason: e}, skipLocationChange: true });
   }
 

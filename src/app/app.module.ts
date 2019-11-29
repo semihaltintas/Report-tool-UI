@@ -46,17 +46,17 @@ const appRoutes: Routes = [
     path: 'Layout', component: LayoutComponent, canActivate: [AuthGuardService],
     children:
     [
-      { path: 'SideBar', component: SidebarComponent}, 
       { path: 'DailyReportSummary', component: DailyOperationReportsComponent},
-      { path: 'DeletedItemReport', component: DeletedItemsReportComponent},
-      { path: 'MenuItemSaleReport', component: MenuItemSaleReportComponent},
+      { path: 'SideBar', component: SidebarComponent}, 
+      { path: 'DailyReportSummary/DeletedItemReport', component: DeletedItemsReportComponent},
+      { path: 'DailyReportSummary/MenuItemSaleReport', component: MenuItemSaleReportComponent},
       { path: 'RequestForm', component: RequestFormComponent},
-      { path: 'FolioDetail', component: FolioDetailReportComponent},
-      { path: 'DiscountSummaryReport', component: DiscountSummaryReportComponent},
-      { path: 'DiscountDetailReport', component: DiscountDetailReportComponent},
-      { path: '', redirectTo: 'DailyReportSummary', pathMatch: 'full' },
+      { path: 'DailyReportSummary/FolioDetail', component: FolioDetailReportComponent},
+      { path: 'DailyReportSummary/DiscountSummaryReport', component: DiscountSummaryReportComponent},
+      { path: 'DailyReportSummary/DiscountDetailReport', component: DiscountDetailReportComponent}
+      ,{ path: '', redirectTo: 'DailyReportSummary', pathMatch: 'full' },
     ]
-  },  
+  },   
 ]
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {

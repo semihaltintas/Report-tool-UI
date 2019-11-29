@@ -28,7 +28,6 @@ export class DailyOperationReportsComponent implements OnInit {
   deletedItemsDetailData: deletedItemDetail[];
   constructor(public _globalService: GlobalService, public _userServices: UserService, public _router: Router, public route: ActivatedRoute) {
     this.route.queryParams.subscribe(params => {
-      debugger
       this.requestForm = _globalService.getNewRequstModel();
       this.requestForm.startedDate = params["startedDate"];
       this.requestForm.endDate = params["endDate"];
@@ -66,20 +65,20 @@ export class DailyOperationReportsComponent implements OnInit {
 
   getItemDetail(e) {
     this._globalService.setSelectedReason(e)
-    this._globalService.setCurrentUrl("DeletedItemReport/")
+    this._globalService.setCurrentUrl("DailyReportSummary/DeletedItemReport/")
     this._router.navigate(['/Layout/' + this._globalService.getCurrentUrl()], { queryParams: { startedDate: this.requestForm.startedDate, endDate: this.requestForm.endDate, branchCode: this.requestForm.branchCode, reason: e }, skipLocationChange: true });
   }
   // 
 
   getManuSaleReport() {
-    this._globalService.setCurrentUrl("MenuItemSaleReport/")
+    this._globalService.setCurrentUrl("DailyReportSummary/MenuItemSaleReport/")
     this._router.navigate(['/Layout/' + this._globalService.getCurrentUrl()], { queryParams: { startedDate: this.requestForm.startedDate, endDate: this.requestForm.endDate, branchCode: this.requestForm.branchCode }, skipLocationChange: true });
   }
 
   getDeletedItemsData() {
     this._globalService.getReportData(this.requestForm, apiUrls.getDeletedItemData, this._userServices.userLicances[0].licanceId).subscribe(result => {
       this.deletedItemsData = result as deletedItemModel[]
-      console.log(this.deletedItemsData)
+
     })
   }
 
@@ -90,7 +89,7 @@ export class DailyOperationReportsComponent implements OnInit {
 
 
   getCompanyDiscountReport() {
-    this._globalService.setCurrentUrl("DiscountSummaryReport/")
+    this._globalService.setCurrentUrl("DailyReportSummary/DiscountSummaryReport/")
     this._router.navigate(['/Layout/' + this._globalService.getCurrentUrl()], { queryParams: { startedDate: this.requestForm.startedDate, endDate: this.requestForm.endDate, branchCode: this.requestForm.branchCode }, skipLocationChange: true });
   }
 

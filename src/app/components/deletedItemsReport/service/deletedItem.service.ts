@@ -13,7 +13,7 @@ constructor(public http : HttpClient) { }
 
 
 getDeletedItemsByReason(model: requestModel,reason,licanceNo) {
-  debugger
+
   let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json')
   let options = { headers: httpHeaders };   
   let parameters = JSON.stringify({
