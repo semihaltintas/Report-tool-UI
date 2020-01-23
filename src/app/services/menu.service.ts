@@ -31,7 +31,7 @@ export class MenuService {
         this.tree = this._router.createUrlTree([], { queryParams: { startedDate: this.reqModel.startedDate, endDate: this.reqModel.endDate, branchCode: this.reqModel.branchCode } });
       }
       this.url = this.serializer.serialize(this.tree);
-      console.log('treeee', this._router.url, this.url)
+      // console.log('treeee', this._router.url, this.url)
 
     })
 

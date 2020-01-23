@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { GlobalService } from 'src/app/services/global.service';
 import { requestModel } from 'src/app/models/globalModel';
 import { Router, ActivatedRoute } from '@angular/router';
-import { menuItemSaleModel } from './models/menuItemSaaleModel';
-import {apiUrls} from '../../enums/serviceUrls';
+import { menuItemSaleModel } from 'src/app/components/menuItemSaleReport/models/menuItemSaaleModel'
+import { apiUrls } from 'src/app/enums/serviceUrls';
 import { UserService } from 'src/app/shared/userServices/user.service';
 import {ExcelService} from 'src/app/services/excel.service'
 @Component({
-  selector: 'app-menuItemSaleReport',
-  templateUrl: './menuItemSaleReport.component.html',
-  styleUrls: ['./menuItemSaleReport.component.scss']
+  selector: 'app-menuItemFolioList',
+  templateUrl: './menuItemFolioList.component.html',
+  styleUrls: ['./menuItemFolioList.component.scss']
 })
-export class MenuItemSaleReportComponent implements OnInit {
+export class MenuItemFolioListComponent implements OnInit {
   loadingVisible = false;
   reqModel: requestModel;
   parameter :string
@@ -19,7 +19,7 @@ export class MenuItemSaleReportComponent implements OnInit {
   // deletedItemsDetailData: deletedItemDetail[];
   menuItemSaleData : menuItemSaleModel[];
   mostSaleItemData : menuItemSaleModel[];
-  constructor(public _ExcelService:ExcelService, public _router: Router,public _globalService : GlobalService,public route : ActivatedRoute,public _userService : UserService) {
+  constructor(public _ExcelService:ExcelService,public _router: Router,public _globalService : GlobalService,public route : ActivatedRoute,public _userService : UserService) {
     this.route.queryParams.subscribe(params => {
 
       this.reqModel = _globalService.getNewRequstModel();
@@ -41,7 +41,7 @@ export class MenuItemSaleReportComponent implements OnInit {
      debugger
     this.loadingVisible = true;
     this.parameter = this.reqModel.groupType
-    this.parameter1 = "group"
+    this.parameter1 = "folioList"
     // console.log(this)
     this._globalService.getReportData(this.reqModel, apiUrls.getMenuItemReport, this._userService.userLicances[0].licanceId, this.parameter,this.parameter1).subscribe(result => {
       this.menuItemSaleData = result as menuItemSaleModel[];
@@ -51,29 +51,18 @@ export class MenuItemSaleReportComponent implements OnInit {
      })
    }
 
-   getMenuSaleReport(branchCode,groupType) {
-    // console.log(this)
-    debugger
-    this._globalService.setCurrentUrl("DailyReportSummary/MenuItemGroupTypeSale/MenuGroupSaleReport/menuItemProductSale/")
-    this._router.navigate(['/Layout/' + this._globalService.getCurrentUrl()], { queryParams: { startedDate: this.reqModel.startedDate, endDate: this.reqModel.endDate, branchCode: branchCode,groupType:groupType}, skipLocationChange: true });
-
-  }
-
-  // arrayGroupBy() {
-  //   return this.menuItemSaleData.reduce(function(rv, x) {
+   getFolioDetail(e)
+   {
+     this._globalService.setCurrentUrl("DailyReportSummary/FolioDetail/")
+     this._router.navigate(['/Layout/' +  this._globalService.getCurrentUrl()],{ queryParams: { folioNo:e , startedDate:this.reqModel.startedDate,endDate:this.reqModel.endDate,branchCode:this.reqModel.branchCode}, skipLocationChange: true });
+   }
  
-  //     (rv[x['GRUPTURU']] = rv[x['GRUPTURU']] || []).push(x);
-  //     return rv;
-  //   }, {});
-  // };
 
   ngOnInit() {
   }
-
   ExportTOExcel():void {
     debugger
     var excelName = this._globalService.getExcelFileName("Menü Kalemi Satış Özeti Raporu",this.reqModel.startedDate,this.reqModel.endDate)
     this._ExcelService.exportAsExcelFile(this.menuItemSaleData,excelName);
   }
-
 }

@@ -18,14 +18,20 @@ export class folioDetailModel
     ADET;
     GELIR;
     SILINME_SEBEBI;
+    SILEN;
     IKRAM_NEDEN;
     IKRAM;
     Y_8_KDV_MATRAH;
     Y_18_KDV_MATRAH;
     Y_8_KDV;
     Y_18_KDV;
+    MATRAH;
+    KDV;
     INDIRIM_ORANI;
     ISKONTO_BUTONU;
     ISKONTO_NEDENI;
     INDIRIM;
+    KDV_TOPLAM;
+    MATRAH_TOPLAM;
+    ODEME;
 }

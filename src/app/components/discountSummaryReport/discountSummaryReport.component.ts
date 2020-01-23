@@ -5,7 +5,7 @@ import { GlobalService } from 'src/app/services/global.service';
 import { DiscountSummaryReportService } from './service/discountSummaryReport.service';
 import { UserService } from 'src/app/shared/userServices/user.service';
 import { discountSummaryModel } from './models/discountSummaryModel';
-
+import {ExcelService} from 'src/app/services/excel.service'
 
 @Component({
   selector: 'app-discountSummaryReport',
@@ -13,10 +13,11 @@ import { discountSummaryModel } from './models/discountSummaryModel';
   styleUrls: ['./discountSummaryReport.component.scss']
 })
 export class DiscountSummaryReportComponent implements OnInit {
+  
   reqModel: requestModel;
   loadingVisible = false;
   discountSummaryListModel: discountSummaryModel[];
-  constructor(public route: ActivatedRoute, public _globalService: GlobalService, public _service: DiscountSummaryReportService, public _userService: UserService,public _router : Router) {
+  constructor(public _ExcelService : ExcelService,public route: ActivatedRoute, public _globalService: GlobalService, public _service: DiscountSummaryReportService, public _userService: UserService,public _router : Router) {
     this.route.queryParams.subscribe(params => {
 
       this.reqModel = _globalService.getNewRequstModel();
@@ -45,6 +46,12 @@ export class DiscountSummaryReportComponent implements OnInit {
     
     this._globalService.setCurrentUrl("DailyReportSummary/DiscountDetailReport/")
   this._router.navigate(['/Layout/' +  this._globalService.getCurrentUrl()],{ queryParams: { startedDate:this.reqModel.startedDate,endDate:this.reqModel.endDate,branchCode:this.reqModel.branchCode,reason: e}, skipLocationChange: true });
+  }
+
+  ExportTOExcel():void {
+    debugger
+    var excelName = this._globalService.getExcelFileName("İndirim Özet Raporu",this.reqModel.startedDate,this.reqModel.endDate)
+    this._ExcelService.exportAsExcelFile(this.discountSummaryListModel,excelName);
   }
 
 }

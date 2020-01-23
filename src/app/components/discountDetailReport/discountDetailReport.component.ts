@@ -5,7 +5,7 @@ import { requestModel } from 'src/app/models/globalModel';
 import { DiscountSummaryReportService } from '../discountSummaryReport/service/discountSummaryReport.service';
 import { UserService } from 'src/app/shared/userServices/user.service';
 import { discountDetailModel } from './models/discountDetailModel';
-
+import {ExcelService} from 'src/app/services/excel.service'
 @Component({
   selector: 'app-discountDetailReport',
   templateUrl: './discountDetailReport.component.html',
@@ -16,7 +16,7 @@ export class DiscountDetailReportComponent implements OnInit {
  loadingVisible = false;
  discountDetailListModel : discountDetailModel[];
  reason = "";
-  constructor(public _globalService : GlobalService,public route : ActivatedRoute,public _service : DiscountSummaryReportService,public _userService : UserService,public _router : Router) { 
+  constructor(public _ExcelService:ExcelService,public _globalService : GlobalService,public route : ActivatedRoute,public _service : DiscountSummaryReportService,public _userService : UserService,public _router : Router) { 
     this.route.queryParams.subscribe(params => {
 
       this.reqModel = _globalService.getNewRequstModel();
@@ -47,6 +47,11 @@ export class DiscountDetailReportComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+  ExportTOExcel():void {
+    debugger
+    var excelName = this._globalService.getExcelFileName("İndirim Detay Raporu",this.reqModel.startedDate,this.reqModel.endDate)
+    this._ExcelService.exportAsExcelFile(this.discountDetailListModel,excelName);
   }
 
 }

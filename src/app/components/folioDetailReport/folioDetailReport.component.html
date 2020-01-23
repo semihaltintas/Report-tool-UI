@@ -1,10 +1,11 @@
 <dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [(visible)]="loadingVisible" [showIndicator]="true"
   [showPane]="true" [shading]="true" message="Rapor Yükleniyor..." [closeOnOutsideClick]="false">
 </dx-load-panel>
-<!-- <h3>Adisyon Detayı</h3> -->
+<dx-button icon="save" text="Kaydet" (onClick)='ExportTOExcel()'  class="dxSave"></dx-button>
+<!-- <h3>Adisyon Detay Raporu</h3> -->
 <div id="invoice">
 
-  <div class="invoice overflow-auto">
+  <div class="invoice overflow-auto" style="margin-top: 17px;">
     <div style="min-width: 600px">
       <header>
         <div class="row">
@@ -41,20 +42,26 @@
             <tr style="background-color: #212529!important; color: #ffffff;;">
               <th class="text-left">Ürün Adı</th>
               <th class="text-left">Adet</th>
+              <th class="text-right">Kdv</th>
+              <th class="text-right">Matrah</th>
               <th class="text-right">Tutar</th>
               <th class="text-right">İkram</th>
               <th class="text-right">İkram Neden</th>
               <th class="text-right">Silinme</th>
+              <th class="text-right">Silen</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of folioDetailList;let c=index">
               <td class="unit text-left">{{item.urunadi}}</td>
               <td class="qty text-left">{{item.ADET}}</td>
+              <td class="unit text-right">{{item.KDV | number}} ₺</td>
+              <td class="text-right">{{item.MATRAH | number}} ₺</td>
               <td class="unit text-right">{{item.GELIR | number}} ₺</td>
               <td class="text-right">{{item.IKRAM}}</td>
               <td class="unit text-right">{{item.IKRAM_NEDEN}}</td>
               <td class="text-right">{{item.SILINME_SEBEBI}}</td>
+              <td class="unit text-right">{{item.SILEN}}</td>
             </tr>
           </tbody>
           <!-- <tfoot style="float: left;">
@@ -74,20 +81,28 @@
                         <td>$6,500.00</td>
                     </tr>
                 </tfoot> -->
-                <tfoot>
-                  <tr>
-                      <td colspan="5">ARA TOPLAM</td>
-                      <td>{{folioDetailList[0].tutar | number}} ₺</td>
-                  </tr>
-                  <tr>
-                      <td colspan="5">GARSONİYE</td>
-                      <td>{{folioDetailList[0].GARSONIYE | number}} ₺</td>
-                  </tr>
-                  <tr>
-                      <td colspan="5">NET TOPLAM</td>
-                      <td>{{folioDetailList[0].tutar + folioDetailList[0].GARSONIYE | number}} ₺</td>
-                  </tr>
-              </tfoot>
+          <tfoot>
+            <tr>
+              <td colspan="8">KDV</td>
+              <td>{{folioDetailList[0].KDV_TOPLAM | number}} ₺</td>
+            </tr>
+            <tr>
+              <td colspan="8">MATRAH</td>
+              <td>{{folioDetailList[0].MATRAH_TOPLAM | number}} ₺</td>
+            </tr>
+            <tr>
+              <td colspan="8">ARA TOPLAM</td>
+              <td>{{folioDetailList[0].tutar | number}} ₺</td>
+            </tr>
+            <tr>
+              <td colspan="8">GARSONİYE</td>
+              <td>{{folioDetailList[0].GARSONIYE | number}} ₺</td>
+            </tr>
+            <tr>
+              <td colspan="8">NET TOPLAM</td>
+              <td>{{folioDetailList[0].tutar + folioDetailList[0].GARSONIYE | number}} ₺</td>
+            </tr>
+          </tfoot>
           <!-- <tfoot>
             <tr>
               <td colspan="7"></td>
@@ -118,6 +133,11 @@
         <div class="notices">
           <div>ADİSYON NOT:</div>
           <div class="notice">{{folioDetailList[0].ADISYON_NOTU}}</div>
+        </div>
+        <div class="notices">
+          <div>ÖDEME BİLGİSİ:</div>
+          <div class="notice">₺ {{folioDetailList[0].ODEME}}</div>
+          
         </div>
       </main>
 

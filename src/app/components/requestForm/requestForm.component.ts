@@ -23,6 +23,7 @@ export class RequestFormComponent implements OnInit {
   reqModel: requestModel;
   pathReplace :string
   constructor(public _globalService : GlobalService, public route: ActivatedRoute,public _userServices : UserService,public _router : Router , private menuService: MenuService) {
+    debugger
     this.getBranchList()
 
     this.requestForm = _globalService.getNewRequstModel();
@@ -61,6 +62,8 @@ export class RequestFormComponent implements OnInit {
   }
   getBranchList()
 {  
+  // debugger
+  // console.log(this._userServices.userLicances[0].licanceId)
   this._globalService.getBranchList(this._userServices.userLicances[0].licanceId).subscribe(result => {
     this.branchList = result
   } )
@@ -122,7 +125,7 @@ getReportData()
             
           });
        
-          console.log(this.breadcrumbList)
+          // console.log(this.breadcrumbList)
           
           // 下一層要比對的目標是這一層指定的子頁面
           if (index+1 !== routerList.length) {

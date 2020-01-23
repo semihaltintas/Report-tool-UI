@@ -1,17 +1,9 @@
-<dx-load-panel
-#loadPanel
-shadingColor="rgba(0,0,0,0.4)"    
-[(visible)]="loadingVisible"
-[showIndicator]="true"
-[showPane]="true"
-[shading]="true"
-message = "Rapor Yükleniyor..."
-[closeOnOutsideClick]="false"
->
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [(visible)]="loadingVisible" [showIndicator]="true"
+  [showPane]="true" [shading]="true" message="Rapor Yükleniyor..." [closeOnOutsideClick]="false">
 </dx-load-panel>
 
 
-<div style="margin-bottom: 50px;" ></div>
+<!-- <div style="margin-bottom: 50px;"></div> -->
 
 <!-- <div id="form-container">
   <form action="your-action">
@@ -41,101 +33,113 @@ message = "Rapor Yükleniyor..."
   </form>
   </div> -->
 
+
+
+<dx-button icon="save" text="Kaydet" (onClick)='ExportTOExcel()' class="dxSave"></dx-button>
 <div *ngFor="let item of reportData;let i=index">
+  <div #content class="content"></div>
   <h4 class="report-Card">{{item.SUBE}}</h4>
   <div class="row report-Card" style="padding-right: 10px;">
     <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12" style="background-color:#f5f5f5;  height: 300px;">
-    <div class="row" style="background-color:#212529;color:#ffffff;">
-      <div class="col-xl-6"><span><strong>Net Satış</strong></span></div>
-      <div class="col-xl-3" style="text-align: right;"><span><strong>{{item.ODEME_TOPLAMI | number}} ₺</strong></span>	</div>
-      <div class="col-xl-3" style="text-align: right;"><span><strong>%100.00</strong></span></div>
-    </div>
-  
-    <div class="row row-Strike">
-      <div class="col-xl-6"><span>Brüt Gelir</span></div>
-      <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{item.BRUT_GELIR | number}} ₺</span>		</div>
-      <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">%100.00</span></div>
-    </div>
-    <div class="row">
-      <div class="col-xl-6"><a (click)="getCompanyDiscountReport()"><span style="text-decoration: underline!important; cursor: pointer;">İndirim</span></a></div>
-      <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{item.INDIRIM | number}} ₺</span>		</div>
-      <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">%100.00</span></div>
-    </div>
-    <div class="row row-Strike">
-      <div class="col-xl-6"><span>KDV Dahil Net</span></div>
-      <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{item.KDV_DAHIL_NET | number}} ₺</span></div>
-      <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">%100.00</span></div>
-    </div>
-   
-    <div class="row ">
-      <div class="col-xl-6"><a (click)="getManuSaleReport()" style="cursor: pointer;"><span style="text-decoration: underline;cursor: pointer;">KDV Hariç Net</span></a></div>
-      <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{item.KDV_HARIC_NET | number}} ₺</span></div>
-      <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">%100.00</span></div>
-    </div>
-    <div class="row row-Strike">
-      <div class="col-xl-6" ><span>KDV Tutarı</span></div>
-      <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{item.KDV_TUTARI | number}} ₺</span>		</div>
-      <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">%100.00</span></div>
-    </div>
-    <div class="row">
-      <div class="col-xl-6"><span>Garsoniye</span></div>
-      <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{item.GARSONIYE | number}} ₺</span>	</div>
-      <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">%100.00</span></div>
-    </div>
-  
+      <div class="row" style="background-color:#212529;color:#ffffff;">
+        <div class="col-xl-6"><span><strong>Net Satış</strong></span></div>
+        <div class="col-xl-3" style="text-align: right;"><span><strong>{{item.ODEME_TOPLAMI | number}} ₺</strong></span>
+        </div>
+        <div class="col-xl-3" style="text-align: right;"><span><strong>%100.00</strong></span></div>
+      </div>
+
+      <div class="row row-Strike">
+        <div class="col-xl-6"><span>Brüt Gelir</span></div>
+        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{item.BRUT_GELIR | number}}
+            ₺</span> </div>
+        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">%100.00</span></div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6"><a (click)="getCompanyDiscountReport(item.S_KODU)"><span
+              style="text-decoration: underline!important; cursor: pointer;">İndirim</span></a></div>
+        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{item.INDIRIM | number}}
+            ₺</span> </div>
+        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">%100.00</span></div>
+      </div>
+      <div class="row row-Strike">
+        <div class="col-xl-6"><span>KDV Dahil Net</span></div>
+        <div class="col-xl-3" style="text-align: right;"><span
+            style="text-align: right;">{{item.KDV_DAHIL_NET | number}} ₺</span></div>
+        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">%100.00</span></div>
+      </div>
+
+      <div class="row ">
+        <div class="col-xl-6"><a (click)="getMenuGroupTypeSaleReport(item.S_KODU)" style="cursor: pointer;"><span
+              style="text-decoration: underline;cursor: pointer;">KDV Hariç Net</span></a></div>
+        <div class="col-xl-3" style="text-align: right;"><span
+            style="text-align: right;">{{item.KDV_HARIC_NET | number}} ₺</span></div>
+        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">%100.00</span></div>
+      </div>
+      <div class="row row-Strike">
+        <div class="col-xl-6"><span>KDV Tutarı</span></div>
+        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{item.KDV_TUTARI | number}}
+            ₺</span> </div>
+        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">%100.00</span></div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6"><span>Garsoniye</span></div>
+        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{item.GARSONIYE | number}}
+            ₺</span> </div>
+        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">%100.00</span></div>
+      </div>
+
     </div>
     <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1"></div>
     <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12" style="background-color:#f5f5f5;height: 300px;">
-        <div class="row"style="background-color:#212529;color:#ffffff;">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6"><span><strong>Operasyon Değerleri</strong></span></div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3" style="text-align: right;"><span></span>	</div>
-            <div class="col-xl-3 col-xl-3 col-lg-3 col-md-3 col-sm-3" style="text-align: right;"><span><strong>Servis(Brüt ve Net)</strong></span></div>
+      <div class="row" style="background-color:#212529;color:#ffffff;">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6"><span><strong>Operasyon Değerleri</strong></span></div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3" style="text-align: right;"><span></span> </div>
+        <div class="col-xl-3 col-xl-3 col-lg-3 col-md-3 col-sm-3" style="text-align: right;"><span><strong>Servis(Brüt
+              ve Net)</strong></span></div>
+      </div>
+      <div class="row row-Strike">
+        <div class="col-xl-6"><span>Servis Performansı(Brüt)</span></div>
+        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">Toplam</span> </div>
+        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">Ortalama</span></div>
+      </div>
+      <div class="row ">
+        <div class="col-xl-6"><span>Kişi/Ort. Harcama</span></div>
+        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{item.KISI}}</span> </div>
+        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{item.AVG_KISI | number}}
+            ₺</span></div>
+      </div>
+      <div class="row row-Strike">
+        <div class="col-xl-6"><span>Çek/Ort. Harcama</span></div>
+        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{item.ADISYON}}</span> </div>
+        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{item.AVG_ADISYON | number}}
+            ₺</span></div>
+      </div>
+      <div class="row row-Strike" style="margin-bottom: 50px;"></div>
+      <div class="row" style="background-color:#212529;color:#ffffff;">
+        <div class="col-xl-6"><span><strong>Düzeltmeler</strong></span></div>
+        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;"><strong>Toplam</strong></span>
+        </div>
+        <div class="col-xl-3" style="text-align: right;"><span
+            style="text-align: right;"><strong>Ortalama</strong></span></div>
+      </div>
+      <div *ngFor="let itemDetail of item.URUN_DUZENLEME;let c=index">
+        <div *ngIf="itemDetail && changeOdd">
+          <div class="{{isOdd ? 'row row-Strike' : 'row'}}">
+            <div class="col-xl-6"><a (click)="getItemDetail(itemDetail.NEDEN,item.S_KODU)"
+                style="cursor: pointer;"><span
+                  style="text-decoration: underline; cursor: pointer;">{{itemDetail.NEDEN}}</span></a></div>
+            <div class="col-xl-3" style="text-align: right;"><span
+                style="text-align: right;">{{itemDetail.MIKTAR}}</span> </div>
+            <div class="col-xl-3" style="text-align: right;"><span
+                style="text-align: right;">{{itemDetail.TOPLAM | number}} ₺</span></div>
           </div>
-          <div class="row row-Strike">
-              <div class="col-xl-6"><span>Servis Performansı(Brüt)</span></div>
-              <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">Toplam</span>	</div>
-              <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">Ortalama</span></div>
-            </div>
-            <div class="row ">
-                <div class="col-xl-6"><span>Kişi/Ort. Harcama</span></div>
-                <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{item.KISI}}</span>	</div>
-                <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{item.AVG_KISI | number}} ₺</span></div>
-              </div>
-              <div class="row row-Strike">
-                  <div class="col-xl-6"><span>Çek/Ort. Harcama</span></div>
-                  <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{item.ADISYON}}</span>	</div>
-                  <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{item.AVG_ADISYON | number}} ₺</span></div>
-                </div>
-                <div class="row row-Strike" style="margin-bottom: 50px;"></div>
-                <div class="row"style="background-color:#212529;color:#ffffff;">
-                    <div class="col-xl-6"><span><strong>Düzeltmeler</strong></span></div>
-                    <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;"><strong>Toplam</strong></span></div>
-                    <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;"><strong>Ortalama</strong></span></div>
-                  </div>
-                  <div *ngFor="let itemDetail of item.URUN_DUZENLEME;let c=index" >
-                  <div *ngIf="itemDetail && changeOdd">
-                    <div class="{{isodd ? 'row row-Strike' : 'row'}}">
-                         <div class="col-xl-6"><a (click)="getItemDetail(itemDetail.NEDEN)" style="cursor: pointer;"><span style="text-decoration: underline; cursor: pointer;">{{itemDetail.NEDEN}}</span></a></div>
-                        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{itemDetail.MIKTAR}}</span>	</div>
-                        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{itemDetail.TOPLAM | number}} ₺</span></div>
-                    </div>
-                  </div>      
-                  
-                  <!-- <div *ngFor="let itemDetail of item.URUN_DUZENLEME;let c=index" ></div>
-                  <div *ngIf="itemDetail && changeOdd">
-                    <div ngClass="{{isodd ? 'row row-Strike' : 'row'}}">
-                         <div class="col-xl-6"><span>{{itemDetail.NEDEN}}</span></div>
-                        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{itemDetail.MIKTAR}}</span>	</div>
-                        <div class="col-xl-3" style="text-align: right;"><span style="text-align: right;">{{itemDetail.TOPLAM | number}} ₺</span></div>
-                    </div>
-                  </div>                   -->
-                        
+        </div>
+
+      </div>
+
     </div>
-    
+
   </div>
-  
 </div>
 
 <div style="margin-bottom: 50px;"></div>
-
-  

@@ -1,5 +1,7 @@
 
 export class menuItemSaleModel {
+    S_KODU;
+    URUN_ADI;
     GRUPTURU;
     GRUP;
     INDIRIMSIZ_BRUT;

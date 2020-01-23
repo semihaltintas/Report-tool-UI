@@ -1,12 +1,13 @@
 <!-- <h4>{{reportTitle}}</h4> -->
 
-<div style="margin-bottom: 10px;" ></div>
+<div style="margin-bottom: 10px;"></div>
 <div class="col">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item" 
-      *ngFor="let item of breadcrumbList; let i = index"
+    <li class="breadcrumb-item" *ngFor="let item of breadcrumbList; let i = index"
       [class.active]="i===breadcrumbList.length-1">
-      <a  [routerLink]="item.path" [queryParams]="{startedDate:item.startedDate, endDate:item.endDate, branchCode:item.branchCode }"  *ngIf="i!==breadcrumbList.length-1">
+      <a [routerLink]="item.path"
+        [queryParams]="{startedDate:item.startedDate, endDate:item.endDate, branchCode:item.branchCode }"
+        *ngIf="i!==breadcrumbList.length-1">
         {{ item.name }}
         <!-- [queryParams]="{startedDate:'item.startedDate', endDate : 'item.endDate', branchCode : 'item.branchCode' }" -->
       </a>
@@ -16,29 +17,33 @@
 </div>
 <div id="form-container">
   <form action="your-action">
-        <dx-form id="myForm"
-        [formData]="requestForm"
-        labelLocation="top"  
-     [colCountByScreen]="colCountByScreen" [screenByWidth]="screen">
-     <dxi-item dataField="startedDate" editorType="dxDateBox" [editorOptions]="{ value: null, width: '100%',displayFormat:'dd.MM.yyyy'}"><dxo-label [visible]="true" text="Başlangıç Tarihi"></dxo-label>
-      <dxi-validation-rule type="required" message="Lütfen Başlangıç Tarihi Giriniz..."></dxi-validation-rule></dxi-item>                                         
-      <dxi-item dataField="endDate" editorType="dxDateBox" [editorOptions]="{ value: null, width: '100%',displayFormat:'dd.MM.yyyy'}"><dxo-label [visible]="true" text="Bitiş Tarihi"></dxo-label>
-        <dxi-validation-rule type="required" message="Lütfen Başlangıç Tarihi Giriniz..."></dxi-validation-rule></dxi-item>                                 
-  <dxi-item dataField="branchCode" editorType="dxTagBox"
-   [editorOptions]="{dataSource: branchList, valueExpr: 'branchCode',displayExpr:'branchName',searchEnabled:'true',showClearButton:'true',showSelectionControls:'true',applyValueMode:'useButtons',placeholder:'Şube Seçimi...'}">
-   <dxi-validation-rule type="required" message="Lütfen Şube Seçimi Yapınız."></dxi-validation-rule>
-   <dxo-label text="Şube Seçiniz"></dxo-label>
-  </dxi-item>
-  
+    <dx-form id="myForm" [formData]="requestForm" labelLocation="top" [colCountByScreen]="colCountByScreen"
+      [screenByWidth]="screen">
+      <dxi-item dataField="startedDate" editorType="dxDateBox"
+        [editorOptions]="{ value: null, width: '100%',displayFormat:'dd.MM.yyyy'}">
+        <dxo-label [visible]="true" text="Başlangıç Tarihi"></dxo-label>
+        <dxi-validation-rule type="required" message="Lütfen Başlangıç Tarihi Giriniz..."></dxi-validation-rule>
+      </dxi-item>
+      <dxi-item dataField="endDate" editorType="dxDateBox"
+        [editorOptions]="{ value: null, width: '100%',displayFormat:'dd.MM.yyyy'}">
+        <dxo-label [visible]="true" text="Bitiş Tarihi"></dxo-label>
+        <dxi-validation-rule type="required" message="Lütfen Başlangıç Tarihi Giriniz..."></dxi-validation-rule>
+      </dxi-item>
+      <dxi-item dataField="branchCode" editorType="dxTagBox"
+        [editorOptions]="{dataSource: branchList, valueExpr: 'branchCode',displayExpr:'branchName',searchEnabled:'true',showClearButton:'true',showSelectionControls:'true',applyValueMode:'useButtons',placeholder:'Şube Seçimi...'}">
+        <dxi-validation-rule type="required" message="Lütfen Şube Seçimi Yapınız."></dxi-validation-rule>
+        <dxo-label text="Şube Seçiniz"></dxo-label>
+      </dxi-item>
+
       <dxi-item></dxi-item>
       <dxi-item></dxi-item>
-  <dxi-item>        
-      <div >    
-          <dx-button  text="Rapor Getir" type="default" (onClick)='getReportData()' style="margin: 5px;float:right;"></dx-button>       
-   </div> 
-  </dxi-item>
-                                           
-        </dx-form>
+      <dxi-item>
+        <div>
+          <dx-button text="Rapor Getir" type="default" (onClick)='getReportData()' style="margin: 5px;float:right;">
+          </dx-button>
+        </div>
+      </dxi-item>
+
+    </dx-form>
   </form>
-  </div>
- 
+</div>

@@ -10,13 +10,13 @@ message = "Rapor Yükleniyor..."
 >
 </dx-load-panel> 
 <dx-button icon="save" text="Kaydet" (onClick)='ExportTOExcel()'  class="dxSave"></dx-button>
- <h3>Menü Kalemi Satış Özeti Raporu</h3>
+ <h3>Menü Kalemi Ürün Satış Raporu</h3>
  <div class="table-responsive tableFixHead">
 <table data-toggle="table"
 data-search-text="8">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">Grubu</th>
+      <th scope="col">Ürün Adı</th>
       <th scope="col">İndirimsiz Brüt</th>
       <th scope="col">Brüt İndirim</th>
       <th scope="col">İndirimsiz Net</th>
@@ -28,7 +28,7 @@ data-search-text="8">
   </thead>
   <tbody>
     <tr *ngFor="let item of menuItemSaleData;let c=index">
-      <td style="cursor: pointer!important;text-decoration: underline;"><a (click)="getMenuSaleReport(item.S_KODU,item.GRUP)">{{item.GRUP}}</a></td>
+      <td style="cursor: pointer!important;text-decoration: underline;"><a (click)="getMenuSaleReport(item.S_KODU,item.URUN_ADI)">{{item.URUN_ADI}}</a></td>
       <td>{{item.INDIRIMSIZ_BRUT | number}} ₺</td>
       <td>{{item.BRUT_INDIRIM | number}} ₺</td>
       <td>{{item.INDIRIMSIZ_NET | number}} ₺</td>

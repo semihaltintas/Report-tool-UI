@@ -13,9 +13,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { Routes, RouterModule } from '@angular/router';
-
 import {CustomDevExtremeModule} from './devExtreme.Module';
-
 import {LoginComponent} from './login/login.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {LayoutComponent} from './layout/layout.component';
@@ -26,14 +24,16 @@ import {RequestFormComponent } from './components/requestForm/requestForm.compon
 import {FolioDetailReportComponent} from  './components/folioDetailReport/folioDetailReport.component';
 import {DiscountSummaryReportComponent} from './components/discountSummaryReport/discountSummaryReport.component';
 import {DiscountDetailReportComponent} from './components/discountDetailReport/discountDetailReport.component';
-
-
+import {MenuItemProductSaleComponent} from './components/menuItemProductSale/menuItemProductSale.component';
+import {MenuItemFolioListComponent} from './components/menuItemFolioList/menuItemFolioList.component';
 import { FormsModule } from '@angular/forms';
 import { AuthGuardService } from './shared/userServices/auth-guard.service';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './shared/userServices/token.interceptor';
 import { TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { MenuItemGroupTypeSaleComponent } from './components/menuItemGroupTypeSale/menuItemGroupTypeSale.component';
+import {ExcelService} from 'src/app/services/excel.service'
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -49,7 +49,10 @@ const appRoutes: Routes = [
       { path: 'DailyReportSummary', component: DailyOperationReportsComponent},
       { path: 'SideBar', component: SidebarComponent}, 
       { path: 'DailyReportSummary/DeletedItemReport', component: DeletedItemsReportComponent},
-      { path: 'DailyReportSummary/MenuItemSaleReport', component: MenuItemSaleReportComponent},
+      { path: 'DailyReportSummary/MenuItemGroupTypeSale/MenuGroupSaleReport', component: MenuItemSaleReportComponent},
+      { path: 'DailyReportSummary/MenuItemGroupTypeSale/MenuGroupSaleReport/menuItemProductSale', component: MenuItemProductSaleComponent},
+      { path: 'DailyReportSummary/MenuItemGroupTypeSale/MenuGroupSaleReport/menuItemProductSale/menuItemFolioList', component: MenuItemFolioListComponent},
+      { path: 'DailyReportSummary/MenuItemGroupTypeSale', component: MenuItemGroupTypeSaleComponent},
       { path: 'RequestForm', component: RequestFormComponent},
       { path: 'DailyReportSummary/FolioDetail', component: FolioDetailReportComponent},
       { path: 'DailyReportSummary/DiscountSummaryReport', component: DiscountSummaryReportComponent},
@@ -75,7 +78,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FolioDetailReportComponent,
     MenuItemSaleReportComponent,
     DiscountSummaryReportComponent,
-    DiscountDetailReportComponent
+    DiscountDetailReportComponent,
+    MenuItemGroupTypeSaleComponent,
+    MenuItemProductSaleComponent,
+    MenuItemFolioListComponent
+    
         
   ],
   imports: [
@@ -98,8 +105,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   providers: [ {
     provide: PERFECT_SCROLLBAR_CONFIG,
-    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,    
+    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+
   },
+  ExcelService,
   AuthGuardService, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
 ],
 schemas: [

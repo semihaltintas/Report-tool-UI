@@ -26,9 +26,9 @@ export class SidebarComponent implements OnInit {
   constructor(public sidebarservice: SidebarService,public _userService : UserService,public _router : Router,public _globalService : GlobalService) {
     this.menus = sidebarservice.getMenuList();
   
-    console.log(_userService)
+    // console.log(_userService)
     this.userName = _userService.userName
-    this.userSurName = _userService.userSurname
+    this.userSurName = _userService.userSurname 
     that=this;
    }
 

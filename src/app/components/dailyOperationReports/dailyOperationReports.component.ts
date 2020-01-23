@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { branchModel } from 'src/app/models/globalModel';
 import { GlobalService } from 'src/app/services/global.service';
 import { DailyOperationReportService } from './service/dailyOperationReport.service';
@@ -10,7 +10,7 @@ import { apiUrls } from 'src/app/enums/serviceUrls';
 import { dailySummaryResponseModel } from './models/dailySummaryReportModel';
 import { deletedItemModel, deletedItemDetail } from '../deletedItemsReport/model/deletedItemsModel';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import {ExcelService} from 'src/app/services/excel.service'
 
 @Component({
   selector: 'app-dailyOperationReports',
@@ -18,6 +18,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./dailyOperationReports.component.scss']
 })
 export class DailyOperationReportsComponent implements OnInit {
+  @ViewChild('content') content: ElementRef;
   branchList: branchModel[];
   requestForm: requestModel;
   colCountByScreen: Object;
@@ -26,7 +27,7 @@ export class DailyOperationReportsComponent implements OnInit {
   reportData: dailySummaryResponseModel[];
   deletedItemsData: deletedItemModel[];
   deletedItemsDetailData: deletedItemDetail[];
-  constructor(public _globalService: GlobalService, public _userServices: UserService, public _router: Router, public route: ActivatedRoute) {
+  constructor(public _globalService: GlobalService, public _userServices: UserService, public _router: Router, public route: ActivatedRoute, public _ExcelService : ExcelService) {
     this.route.queryParams.subscribe(params => {
       this.requestForm = _globalService.getNewRequstModel();
       this.requestForm.startedDate = params["startedDate"];
@@ -63,20 +64,25 @@ export class DailyOperationReportsComponent implements OnInit {
     }
   }
 
-  getItemDetail(e) {
+  getItemDetail(e,branchCode) {
     this._globalService.setSelectedReason(e)
     this._globalService.setCurrentUrl("DailyReportSummary/DeletedItemReport/")
-    this._router.navigate(['/Layout/' + this._globalService.getCurrentUrl()], { queryParams: { startedDate: this.requestForm.startedDate, endDate: this.requestForm.endDate, branchCode: this.requestForm.branchCode, reason: e }, skipLocationChange: true });
+    this._router.navigate(['/Layout/' + this._globalService.getCurrentUrl()], { queryParams: { startedDate: this.requestForm.startedDate, endDate: this.requestForm.endDate, branchCode: branchCode, reason: e }, skipLocationChange: true });
   }
   // 
 
-  getManuSaleReport() {
-    this._globalService.setCurrentUrl("DailyReportSummary/MenuItemSaleReport/")
-    this._router.navigate(['/Layout/' + this._globalService.getCurrentUrl()], { queryParams: { startedDate: this.requestForm.startedDate, endDate: this.requestForm.endDate, branchCode: this.requestForm.branchCode }, skipLocationChange: true });
+  // getManuSaleReport(branchCode) {
+  //   this._globalService.setCurrentUrl("DailyReportSummary/MenuItemSaleReport/")
+  //   this._router.navigate(['/Layout/' + this._globalService.getCurrentUrl()], { queryParams: { startedDate: this.requestForm.startedDate, endDate: this.requestForm.endDate, branchCode: branchCode }, skipLocationChange: true });
+  // }
+
+    getMenuGroupTypeSaleReport(branchCode) {
+    this._globalService.setCurrentUrl("DailyReportSummary/MenuItemGroupTypeSale/")
+    this._router.navigate(['/Layout/' + this._globalService.getCurrentUrl()], { queryParams: { startedDate: this.requestForm.startedDate, endDate: this.requestForm.endDate, branchCode: branchCode }, skipLocationChange: true });
   }
 
   getDeletedItemsData() {
-    this._globalService.getReportData(this.requestForm, apiUrls.getDeletedItemData, this._userServices.userLicances[0].licanceId).subscribe(result => {
+    this._globalService.getReportData(this.requestForm, apiUrls.getDeletedItemData, this._userServices.userLicances[0].licanceId,"param","").subscribe(result => {
       this.deletedItemsData = result as deletedItemModel[]
 
     })
@@ -88,17 +94,18 @@ export class DailyOperationReportsComponent implements OnInit {
   }
 
 
-  getCompanyDiscountReport() {
+  getCompanyDiscountReport(branchCode) {
+
     this._globalService.setCurrentUrl("DailyReportSummary/DiscountSummaryReport/")
-    this._router.navigate(['/Layout/' + this._globalService.getCurrentUrl()], { queryParams: { startedDate: this.requestForm.startedDate, endDate: this.requestForm.endDate, branchCode: this.requestForm.branchCode }, skipLocationChange: true });
+    this._router.navigate(['/Layout/' + this._globalService.getCurrentUrl()], { queryParams: { startedDate: this.requestForm.startedDate, endDate: this.requestForm.endDate, branchCode: branchCode }, skipLocationChange: true });
   }
 
 
 
   getReportData() {
-
+debugger
     this.loadingVisible = true
-    this._globalService.getReportData(this.requestForm, apiUrls.getDailyReport, this._userServices.userLicances[0].licanceId).subscribe(result => {
+    this._globalService.getReportData(this.requestForm, apiUrls.getDailyReport, this._userServices.userLicances[0].licanceId,"param","").subscribe(result => {
       this.reportData = result as dailySummaryResponseModel[]
       this.loadingVisible = false
     })
@@ -106,5 +113,18 @@ export class DailyOperationReportsComponent implements OnInit {
 
 
   }
+  // ExportTOExcel(){
+  //   debugger
+  //   var dateObject1 = new Date(this.requestForm.startedDate);
+  //   var dateObject2 = new Date(this.requestForm.endDate);
+  //   console.log(dateObject1.toLocaleString().split(' ')[0] + " - " + dateObject2.toLocaleString().split(' ')[0])
+  //   console.log("tuna")
+  // }
+  ExportTOExcel():void {
+    debugger
+    var excelName = this._globalService.getExcelFileName("Günlük Operasyon Raporu",this.requestForm.startedDate,this.requestForm.endDate)
+    this._ExcelService.exportAsExcelFile(this.reportData,excelName);
+  }
+
 
 }

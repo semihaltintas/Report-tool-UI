@@ -7,5 +7,6 @@ export class requestModel {
     startedDate;
     endDate;
     branchCode;
+    groupType;
 }
 

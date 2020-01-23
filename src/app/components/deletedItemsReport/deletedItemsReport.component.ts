@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { requestModel } from '../../models/globalModel';
 import { UserService } from 'src/app/shared/userServices/user.service';
 import { GlobalService } from 'src/app/services/global.service';
-
+import {ExcelService} from 'src/app/services/excel.service'
 
 
 @Component({
@@ -20,7 +20,7 @@ export class DeletedItemsReportComponent implements OnInit {
   reqModel: requestModel;
   reason = ''
   deletedItemsDetailData: deletedItemDetail[];
-  constructor(public _deletedItemService: DeletedItemService, public _router: Router, public route: ActivatedRoute, public _userService: UserService,public _globalService : GlobalService) {
+  constructor(public _ExcelService:ExcelService,public _deletedItemService: DeletedItemService, public _router: Router, public route: ActivatedRoute, public _userService: UserService,public _globalService : GlobalService) {
     this.route.queryParams.subscribe(params => {
 
       this.reqModel = _globalService.getNewRequstModel();
@@ -52,6 +52,11 @@ export class DeletedItemsReportComponent implements OnInit {
 
     this._globalService.setCurrentUrl("DailyReportSummary/FolioDetail/")
    this._router.navigate(['/Layout/' +  this._globalService.getCurrentUrl()],{ queryParams: { folioNo:e, startedDate:this.reqModel.startedDate,endDate:this.reqModel.endDate,branchCode:this.reqModel.branchCode}, skipLocationChange: true });
+  }
+  ExportTOExcel():void {
+    debugger
+    var excelName = this._globalService.getExcelFileName("Silinen Ürün Raporu",this.reqModel.startedDate,this.reqModel.endDate)
+    this._ExcelService.exportAsExcelFile(this.deletedItemsDetailData,excelName);
   }
 
 }
